@@ -1,44 +1,38 @@
-# Project conventions
+# nice-to-haves
 
-Personal project scaffolding: a grab bag of configs and skills. When starting a project, copy only what it needs — this file, `.claude/`, `.vscode/`, `.prettierrc`, and **one** linter config (see *Tooling*) — then fill in the *Project* section and delete the lines that don't apply.
+Personal scaffolding repo: a grab bag of configs and Claude Code skills for starting new projects. It is **not** a project itself — nothing here is built or run. When starting a project, an agent reads this repo and copies only the pieces the new project needs.
 
-## Project
+## What's here
 
-- **What it is:** <one sentence>
-- **Stack:** <e.g. Next.js + TypeScript + styled-components + Vitest>
-- **Run locally:** <command>
+| Path | What it is | Copy when |
+| --- | --- | --- |
+| `.claude/skills/breakdown/` | Split a feature/project into small, testable tasks in `docs/plans/` | Always |
+| `.claude/skills/plan/` | Plan one task before coding: interview, approach, assumptions, edge cases | Always |
+| `.claude/skills/review/` | Code review with acceptance criteria, fix list, verdict, confidence | Always |
+| `.claude/skills/prep/` | Lint, tests, conventional commit message, short PR description | Always |
+| `.claude/skills/caveman/` | Terse reply mode (EN + PT-BR) | If the user wants it |
+| `.vscode/settings.json` | Format on save with Prettier, oxc fix-all on save | Always; drop the oxc line for ESLint projects |
+| `.prettierrc` | Double quotes, semicolons, no trailing commas, 80 columns | Always |
+| `.oxlintrc.json` | oxlint: import sort, `no-explicit-any`, `no-floating-promises` (type-aware) | Node/backend (e.g. NestJS) |
+| `eslint.config.mjs` | ESLint: typescript-eslint, React Hooks, TanStack Query, Prettier, import sort | React/Vite |
+| `templates/CLAUDE.template.md` | Template for the new project's `CLAUDE.md` | Always — filled in, never copied as-is |
 
-## Tooling
+Pick **one** linter per project, never both.
 
-- **Lint:** pick one per project. Both enforce `simple-import-sort` for imports and exports.
-  - **oxlint** (`.oxlintrc.json`) for Node/backend (e.g. NestJS). `typescript/no-floating-promises` is an error: await or explicitly handle every promise.
-  - **ESLint** (`eslint.config.mjs`) for React/Vite. `typescript-eslint` recommended, React Hooks rules, TanStack Query rules, and Prettier run as a lint rule.
-  - `any` is a lint error in both. Use a real type, `unknown` plus narrowing, or a generic. When `any` is truly unavoidable (untyped third-party code), disable the rule for that one line with a comment saying why.
-- **Format:** Prettier (`.prettierrc`): double quotes, semicolons, no trailing commas, 80 columns. Don't hand-format; let Prettier decide.
-- **Package manager:** npm.
-- **Scripts** the skills rely on. Keep these names in `package.json`:
-  - `lint`: `oxlint` or `eslint .`
-  - `lint:fix`: `oxlint --fix` or `eslint . --fix`
-  - `format`: `prettier --write .`
-  - `typecheck`: `tsc --noEmit`
-  - `test`: `vitest run`
+## Bootstrapping a new project
 
-## Git
+1. Ask what the project is and its stack, unless the user already said.
+2. Copy the pieces from the table that fit. Don't copy this file.
+3. Adjust copied configs to the stack. For example, drop the TanStack Query plugin from the ESLint config if the project doesn't use it, and set `globals` to node for a backend.
+4. Write the new project's `CLAUDE.md` from `templates/CLAUDE.template.md`:
+   - Fill every placeholder.
+   - Keep only the lines for what was actually copied.
+   - Delete all template comments.
+   - The result must describe **the new project only**. No mention of this repo, of the template, or of options that weren't chosen.
+5. List the devDependencies and `package.json` scripts the copied configs need, and ask before installing them.
 
-- Hosted on GitHub. Changes go through a pull request, never straight to `main`.
-- Branch: `<type>/<short-kebab-description>`, e.g. `feat/dark-mode-toggle`.
-- Commit: `<type>: <emoji> <Subject>`, e.g. `feat: ✨ Add dark mode toggle`. Imperative subject, under ~50 characters, no trailing period.
-- Types and emojis are listed in the `prep` skill: `feat`, `fix`, `refactor`, `perf`, `test`, `style`, `docs`, `build`, `ci`, `chore`, `revert`.
-- Commits and PRs are written in English.
+## Maintaining this repo
 
-## Workflow
-
-Build iteratively, one small, tested task at a time:
-
-1. `breakdown`: split a feature or project into tasks in `docs/plans/<feature>.md`.
-2. `plan T1`: plan one task (interview, approach, edge cases) before writing code.
-3. Implement, then report a confidence level.
-4. `review`: acceptance criteria, fix list, verdict, confidence.
-5. `prep`: lint, tests, commit message and PR description. The user stages, commits, and pushes.
-
-`docs/plans/` is committed. It holds the task list and the *Decisions* log, which is the only record of why things were done.
+- Adding, removing, or changing a config or skill → update the table above **and** the template, so the two stay in sync.
+- Rules that apply to every project (git conventions, workflow) live in the template. Facts about this repo live here.
+- No `package.json` on purpose: configs here are never installed or run in place.
