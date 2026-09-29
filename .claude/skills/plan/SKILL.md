@@ -102,6 +102,14 @@ When the task came from a breakdown file and its acceptance criteria are verifie
 - Append any decision made during planning or implementation to the file's *Decisions* section (`- YYYY-MM-DD: decision — reason`). That log is the only memory of *why* — there are no ticket comments.
 - Split-off work or new ideas discovered along the way → add them as new tasks or under *Later*, don't silently expand the current one.
 
+## API changes: Bruno
+
+Only when the task adds or changes an endpoint of an HTTP API this project serves. Skip for UI-only work or when the project only consumes someone else's API.
+
+- **Research (step 3):** look for a `bruno.json`. Found → match its layout, variables and test style. Not found → the plan includes creating the collection.
+- **Approach (step 5):** list the `.bru` requests to add or update. No collection yet → add a step to scaffold one, following the `bruno` skill. Map each request to an acceptance criterion under verification.
+- **After implementation (step 7):** run the collection against the dev server and report the result in the Confidence line.
+
 ## Scale
 
 Keep it proportional. A one-component tweak gets a short plan under the same four headings — not a document. Long plans are for changes that cross layers.

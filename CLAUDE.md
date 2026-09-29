@@ -10,6 +10,7 @@ Personal scaffolding repo: a grab bag of configs and Claude Code skills for star
 | `.claude/skills/plan/` | Plan one task before coding: interview, approach, assumptions, edge cases | Always |
 | `.claude/skills/review/` | Code review with acceptance criteria, fix list, verdict, confidence | Always |
 | `.claude/skills/prep/` | Lint, tests, conventional commit message, short PR description | Always |
+| `.claude/skills/bruno/` | Bruno collection conventions: layout, environments, chaining, tests, `bru run` | Project serves an HTTP API |
 | `.claude/skills/caveman/` | Terse reply mode (EN + PT-BR) | If the user wants it |
 | `.vscode/settings.json` | Format on save with Prettier, oxc fix-all on save | Always; drop the oxc line for ESLint projects |
 | `.prettierrc` | Double quotes, semicolons, no trailing commas, 80 columns | Always |

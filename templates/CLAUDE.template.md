@@ -20,6 +20,8 @@ Fill every <placeholder>, keep only the lines for configs actually copied, and d
 - **Lint:** ESLint (`eslint.config.mjs`): `typescript-eslint` recommended, React Hooks rules, TanStack Query rules, `simple-import-sort`, and Prettier run as a lint rule.
 - **`any` is a lint error.** Use a real type, `unknown` plus narrowing, or a generic. When `any` is truly unavoidable (untyped third-party code), disable the rule for that one line with a comment saying why.
 - **Format:** Prettier (`.prettierrc`): double quotes, semicolons, no trailing commas, 80 columns. Don't hand-format; let Prettier decide.
+<!-- Keep only if the bruno skill was copied. -->
+- **API collection:** Bruno in `bruno/`, conventions in the `bruno` skill. Run with `bru run --env local` from `bruno/`, dev server up. Every endpoint added or changed gets a `.bru` request with tests.
 - **Scripts** the skills rely on:
   - `lint` / `lint:fix`: `<oxlint --type-aware | eslint .>` / `<same> --fix`
   - `format`: `prettier --write .`
